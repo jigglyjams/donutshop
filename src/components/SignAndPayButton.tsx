@@ -96,7 +96,7 @@ export default function SignAndPayButton(
         <p>
           <Link
             className="underline text-purple-600"
-            href={`https://sepolia.etherscan.io/tx/${txnHash}`}
+            href={`https://etherscan.io/tx/${txnHash}`}
             target="_blank"
             rel="noreferrer"
           >

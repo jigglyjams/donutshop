@@ -13,19 +13,21 @@ export async function POST (request: Request) {
   console.log("txnHash", txnHash)
   console.log("chainId", chainId)
 
-  // // confirm txn hash
-  // if (!txnHash) {
-  //   return NextResponse.json({ error: "Missing txn hash" }, { status: 400 })
-  // }
-  // const confirmed = await waitForTransactionReceipt(config, { hash: txnHash, chainId })
-  // console.dir(confirmed, { depth: null })
+  // confirm txn hash
+  if (!txnHash) {
+    return NextResponse.json({ error: "Missing txn hash" }, { status: 400 })
+  }
+  const confirmed = await waitForTransactionReceipt(config, { hash: txnHash, chainId, confirmations: 1 })
+
+  if (confirmed.status !== "reverted") {
+    return NextResponse.json({ error: "Transaction not confirmed" }, { status: 400 })
+  }
 
   const variantIndex = colors.indexOf(variant)
   try {
     const response = await createOrder(recipient, [
       variants[variantIndex],
     ])
-    // const response = await getOrder(108335680)
     console.dir(response, { depth: null })
     return NextResponse.json(response)
   } catch (error) {

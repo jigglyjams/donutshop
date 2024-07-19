@@ -27,9 +27,9 @@ export default function Checkout() {
   const chainId = useChainId();
 
   const { pay, isPending } = usePayJuiceboxProject({
-    projectId: 38, // sepolia
-    network: "sepolia",
-    // projectId: 477, // mainnet
+    // projectId: 38, // sepolia
+    // network: "sepolia",
+    projectId: 477, // mainnet
     value: getTotalPriceInEth(ethToUsd || 0),
     callerAddress: address || "0x0",
     memo: "hat game hat game i can play the hat game 🧢",

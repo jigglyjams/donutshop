@@ -27,9 +27,11 @@ export default function SignAndPayButton(
 ) {
   const { address, chainId } = useAccount();
   const { pay, isPending } = usePayJuiceboxProject({
-    projectId: 38, // sepolia
-    network: "sepolia",
-    // projectId: 477, // mainnet
+    // sepolia
+    // projectId: 38,
+    // network: "sepolia",
+    projectId: 477, // mainnet
+    network: "mainnet",
     value: getTotalPriceInEth(ethToUsd || 0),
     callerAddress: address || "0x0",
     memo: "hat game hat game i can play the hat game 🧢",

@@ -19,7 +19,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Providers>
           <SiteNav />
-          <Toaster />
+          <Toaster
+            containerClassName="mt-20"
+            toastOptions={{
+              duration: 5000,
+            }}
+          />
           {children}
         </Providers>
       </body>

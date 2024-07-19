@@ -93,11 +93,11 @@ export async function getOrderCost(recipient: AddressInfo, items: any[]) {
   });
 }
 
-export async function createOrder(recipient: AddressInfo, items: any[]) {
+export async function createOrder(recipient: AddressInfo, items: any[], external_id?: string) {
   return printful<any>({
     endpoint: '/orders',
     method: 'POST',
-    body: { recipient, items },
+    body: { recipient, items, external_id },
   });
 }
 

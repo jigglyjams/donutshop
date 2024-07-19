@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { createOrder } from "@/lib/printful"
 import { variants } from "@/lib/printful/variants"
 import { waitForTransactionReceipt } from "wagmi/actions"
@@ -7,7 +7,7 @@ import { redis } from "@/lib/redis"
 
 const colors = ["navy", "gray", "stone"] as const
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const { recipient, variant, txnHash, chainId, nonce } = await request.json()
     console.log("recipient", recipient)

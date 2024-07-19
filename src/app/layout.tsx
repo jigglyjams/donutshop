@@ -20,9 +20,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <SiteNav />
           <Toaster
-            containerClassName="mt-20"
-            toastOptions={{
-              duration: 5000,
+            containerStyle={{
+              top: 80,
             }}
           />
           {children}

@@ -3,7 +3,7 @@ import { redis } from "@/lib/redis"
 import { NextResponse } from "next/server"
 
 export async function GET() {
-  const nanoid = customAlphabet('1234567890abcdefghijkABCDEFGHJK', 10)
+  const nanoid = customAlphabet('1234567890abcdefghijkABCDEFGHJK', 20)
   const nonce = nanoid()
   await redis?.set(nonce, "1")
   try {

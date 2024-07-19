@@ -79,9 +79,10 @@ export async function getProduct(id: string) {
   });
 }
 
-export async function getOrder(id: number) {
+export async function getOrder({ id, internal_id } : { id: string, internal_id?: string }) {
+  const _id = internal_id ? internal_id : `@${id}`;
   return printful<any>({
-    endpoint: `/v2/orders/${id}/order-items`,
+    endpoint: `/orders/${_id}`,
   });
 }
 

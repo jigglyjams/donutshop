@@ -7,7 +7,7 @@ import { usePayJuiceboxProject } from "@/hooks/usePayJuiceboxProject";
 import { useAccount, useChainId } from "wagmi";
 import toast from "react-hot-toast";
 import { useFetchEthToUsd } from "@/hooks/useFetchEthToUsd";
-import { getTotalPriceInEth } from "@/components/SingleProduct";
+import { getTotalPriceInEth } from "@/lib/price";
 
 const recipientFilled = (recipient: AddressInfo) => {
   return (
@@ -48,7 +48,6 @@ export default function Checkout() {
           <div className="flex flex-col text-xs text-center items-center font-mono">
             <div>{"#".repeat(30)}</div>
             <div>{"#".repeat(30)}</div>
-            <div className="font-bold mt-2">On Chain Copy</div>
             <div className="w-3/4 my-2">
               {/* Sign and Pay Button */}
               <button
@@ -57,17 +56,17 @@ export default function Checkout() {
                 onClick={async () => {
                   const payLoading = toast.loading("Signing...");
                   try {
-                    const order = await fetch("/api/printful/order", {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ txnHash:"", recipient, variant, chainId }),
-                    });
                     const txnHash = await pay();
                     if (txnHash) {
                       console.log("hash", txnHash);
                       toast.dismiss(payLoading);
                       toast.success("Payment sent!");
-                      const txnLoading = toast.loading("Waiting for confirmation...");
+                      const txnLoading = toast.loading("Placing order...");
+                      const order = await fetch("/api/printful/order", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ txnHash:"", recipient, variant, chainId }),
+                      });
                     } else {
                       toast.dismiss(payLoading);
                       toast.error("Check network!");
@@ -85,9 +84,7 @@ export default function Checkout() {
             <div className="text-[10px] mt-1">Keep this receipt for your records</div>
             <div className="mt-6">Thanks for shopping with us!</div>
             <div className="text-3xl mt-2">{"☺".repeat(10)}</div>
-            <div className="mt-6">{"#=%=".repeat(7)}</div>
-            <div>{"=%=#".repeat(7)}</div>
-            <div>{"#=%=".repeat(7)}</div>
+            <div className="mt-10">{"#=%=".repeat(7)}</div>
             <div>{"#".repeat(30)}</div>
             <div>{"#".repeat(30)}</div>
           </div>

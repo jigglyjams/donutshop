@@ -6,8 +6,8 @@ import { config } from "@/lib/wagmi"
 
 const colors = ["navy", "gray", "stone"] as const
 
-export async function POST (request: Request) {
-  const { recipient, variant, txnHash, chainId } = await request.json()
+export async function POST(request: Request) {
+  const { recipient, variant, txnHash, chainId, nonce } = await request.json()
   console.log("recipient", recipient)
   console.log("variant", variant)
   console.log("txnHash", txnHash)
@@ -19,8 +19,8 @@ export async function POST (request: Request) {
   }
   const confirmed = await waitForTransactionReceipt(config, { hash: txnHash, chainId, confirmations: 1 })
 
-  if (confirmed.status !== "reverted") {
-    return NextResponse.json({ error: "Transaction not confirmed" }, { status: 400 })
+  if (confirmed.status === "reverted") {
+    return NextResponse.json({ error: "Transaction reverted" }, { status: 400 })
   }
 
   const variantIndex = colors.indexOf(variant)

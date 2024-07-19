@@ -1,6 +1,5 @@
 import { ArrowPathIcon } from "@heroicons/react/16/solid";
-import { cryptoDiscount, price, shipping } from "./SingleProduct";
-import { useFetchEthToUsd } from "@/hooks/useFetchEthToUsd";
+import { cryptoDiscount, price, shipping } from "@/lib/price";
 import { useState } from "react";
 
 export default function PriceBreakdown({

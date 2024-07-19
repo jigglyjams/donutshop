@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 
-type CoinbaseETHUSD = {
+type CoinbaseSpotResponse = {
   data: {
     base: string;
     currency: string;
     amount: string;
   }
 };
-
-const coinbaseURL = "https://api.coinbase.com/v2/prices/ETH-USD/spot";
 
 export const useFetchEthToUsd = () => {
   const [ethToUsd, setEthToUsd] = useState<number | null>(null);
@@ -17,8 +15,8 @@ export const useFetchEthToUsd = () => {
 
   const fetchExchange = async () => {
     try {
-      const res = await fetch(coinbaseURL);
-      const data: CoinbaseETHUSD = await res.json();
+      const res = await fetch("https://api.coinbase.com/v2/prices/ETH-USD/spot", { cache: "no-store" });
+      const data: CoinbaseSpotResponse = await res.json();
       console.log("ETH to USD:", data.data.amount);
       setEthToUsd(Number(data.data.amount));
       setLoading(false);

@@ -2,30 +2,18 @@
 import { useCart } from "@/app/context/CartContext";
 import ProductImages, { VariantName } from "./ProductImages";
 import { useFetchEthToUsd } from "@/hooks/useFetchEthToUsd";
-
-export const shipping = 3.99; // Flat shipping fee
-export const price = 27
-export const cryptoDiscount = 0.1
-const getPriceInEth = (ethToUsd: number | null) => {
-  if (!ethToUsd) return 0
-  return ((price - price * cryptoDiscount) / ethToUsd)
-}
-
-export const getTotalPriceInEth = (ethToUsd: number | null) => {
-  if (!ethToUsd) return 0
-  return (((price - price * cryptoDiscount) + shipping) / ethToUsd)
-}
+import { price, getPriceInEth } from "@/lib/price"; 
 
 export default function SingleProduct() {
   const { variant, setVariant } = useCart();
   const { ethToUsd } = useFetchEthToUsd();
 
   return (
-    <div className="flex flex-col items-center pt-20 space-y-8">
+    <div className="flex flex-col items-center pt-20 space-y-4">
       <h1 className="text-3xl font-mono font-bold">nance-wordart-5.png</h1>
 
       <ProductImages variant={variant} />
-      <div className="font-mono">
+      <div className="font-mono flex flex-row md:flex-col space-x-2 align-center items-center">
         <h2 className="text-xl">${price.toFixed(2)}</h2>
         <p>or</p>
         <h2 className="text-lg">{ethToUsd ? getPriceInEth(ethToUsd).toFixed(6) : "0.------"} ETH</h2>

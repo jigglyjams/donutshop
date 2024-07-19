@@ -36,20 +36,26 @@ export default function ProductImages({ variant }: { variant: VariantName }) {
     <div className="relative w-full max-w-md mx-auto flex items-center">
       <button
         onClick={prevImage}
-        className="mr-4 bg-white hover:bg-gray-100 rounded-full p-2"
+        className="mr-2 bg-white hover:bg-gray-100 rounded-full p-2"
         aria-label="Previous image"
       >
         <ChevronLeftIcon className="h-5 w-5" />
       </button>
       <div className="flex-grow">
         <div className="aspect-square relative overflow-hidden">
-          <Image
-            src={images[currentIndex]}
-            alt={`Image ${currentIndex + 1}`}
-            width={400}
-            height={400}
-            className="absolute inset-0 w-full h-full object-cover rounded-2xl"
-          />
+          {images.map((src, index) => (
+            <Image
+              key={src}
+              src={src}
+              alt={`Image ${index + 1}`}
+              width={400}
+              height={400}
+              className={`absolute inset-0 w-full h-full object-cover rounded-2xl transition-opacity duration-100 ${
+                index === currentIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+              priority={index === 0}
+            />
+          ))}
         </div>
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
           {images.map((_, index) => (
@@ -66,7 +72,7 @@ export default function ProductImages({ variant }: { variant: VariantName }) {
       </div>
       <button
         onClick={nextImage}
-        className="ml-4 bg-white hover:bg-gray-100 rounded-full p-2"
+        className="ml-2 bg-white hover:bg-gray-100 rounded-full p-2"
         aria-label="Next image"
       >
         <ChevronRightIcon className="h-5 w-5" />

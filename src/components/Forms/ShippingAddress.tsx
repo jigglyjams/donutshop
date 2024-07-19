@@ -1,6 +1,5 @@
 import { AddressInfo } from "@/lib/printful/types";
 import { countries } from "@/lib/printful/countries";
-import { useEffect } from "react";
 
 const US_STATES = countries.find((c) => c.name === "United States")?.states || [];
 
@@ -15,11 +14,16 @@ export default function ShippingAddressForm({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let state_code = recipient.state_code;
     let state_name = recipient.state_name;
+    const input = e.target.value;
     if (e.target.name === "state_name") {
-      const foundByName = US_STATES.find((c) => c.name === e.target.value);
-      if (foundByName) state_code = foundByName.code;
-      const foundByCode = US_STATES.find((c) => c.code === e.target.value);
-      if (foundByCode) state_name = foundByCode.name;
+      const foundByName = US_STATES.find((c) => c.name.toLowerCase() === input.toLowerCase());
+      if (foundByName) {state_code = foundByName.code; console.log("found by name", state_code, state_name) }
+      const foundByCode = US_STATES.find((c) => c.code.toLowerCase() === input.toLowerCase());
+      if (foundByCode) {
+        state_name = foundByCode.name;
+        state_code = foundByCode.code;
+        console.log("found by code", state_code, state_name)
+      }
     }
     setRecipient({
       ...recipient,

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { getOrderCost } from "@/lib/printful"
 import { variants } from "@/lib/printful/variants"
 
-export async function POST (request: Request) {
+export async function POST(request: Request) {
   const { recipient } = await request.json()
   
   try {

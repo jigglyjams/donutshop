@@ -1,11 +1,17 @@
 import { getOrder } from '@/lib/printful';
 
+export const fetchCache = "force-no-store"
+
 export default async function OrderPage({ params }: { params: { id: string } }) {
   const { id } = params;
   let order;
+  let status = "order placed";
   try {
     order = await getOrder({ id });
-    console.log("order", order);
+    console.dir(order, { depth: null });
+    if (order?.result?.status !== "draft") {
+      status = order.result.status;
+    }
   } catch (error) {
     console.error("Error fetching order:", error);
     return <OrderNotFound />
@@ -18,8 +24,8 @@ export default async function OrderPage({ params }: { params: { id: string } }) 
       <h1 className="text-3xl font-bold">Your order has been received 🥳</h1>
       <p>{"You'll"} get email updates if you provided one during checkout</p>
       <p>Order id: <span className="underline">{params.id}</span></p>
-      <p>Order status: <span className="font-bold">{order.result.status}</span></p>
-      {order.result.shipments[0]?.tracking_url && (
+      <p>Order status: <span className="font-bold">{status}</span></p>
+      {order.result.shipments[0]?.tracking_number && (
         <>
           <p>Tracking number:</p>
           <a
@@ -33,7 +39,7 @@ export default async function OrderPage({ params }: { params: { id: string } }) 
         </>
       )}
       <p>Thanks for shopping with us!</p>
-      <p className="text-3xl mt-2">{"☺".repeat(1008)}</p>
+      <p className="text-3xl mt-2">{"☺".repeat(210)}</p>
     </div>
   );
 }

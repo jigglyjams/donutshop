@@ -24,6 +24,7 @@ export default function ShippingAddressForm({
     setRecipient({
       ...recipient,
       state_code,
+      state_name,
       [e.target.name]: e.target.value,
     });
   };

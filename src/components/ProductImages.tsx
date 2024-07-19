@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/20/solid";
 
-const angles = ["front", "back", "left-front", "left-side", "right-front", "right-side"] as const;
+const angles = ["front", "right-front", "right-side", "back", "left-side", "left-front"] as const;
 const variantNames = {
   navy: "navy",
   gray: "dark-grey",
@@ -57,7 +57,7 @@ export default function ProductImages({ variant }: { variant: VariantName }) {
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-3 h-3 rounded-full ${
-                index === currentIndex ? 'bg-white' : 'bg-white/50'
+                index === currentIndex ? 'bg-gray-500' : 'bg-white'
               }`}
               aria-label={`Go to image ${index + 1}`}
             />

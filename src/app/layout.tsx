@@ -5,10 +5,18 @@ import "./globals.css";
 import SiteNav from "@/components/Site/Top";
 
 export const metadata: Metadata = {
-  title: "donutshop",
+  title: "donut shop",
   description: "juicebox powered e-commerce",
   icons: {
     icon: "/favicon.ico",
+  },
+  openGraph: {
+    images: [
+      {
+        url: '/open-graph.png',
+        alt: 'nance hat',
+      },
+    ],
   },
 };
 

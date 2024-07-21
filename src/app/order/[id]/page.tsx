@@ -1,17 +1,16 @@
 import { getOrder } from '@/lib/printful';
+import { BetterStatus, betterStatus } from "@/lib/printful/constants";
 
 export const fetchCache = "force-no-store"
 
 export default async function OrderPage({ params }: { params: { id: string } }) {
   const { id } = params;
   let order;
-  let status = "order placed";
+  let status = "unknown";
   try {
     order = await getOrder({ id });
     console.dir(order, { depth: null });
-    if (order?.result?.status !== "draft") {
-      status = order.result.status;
-    }
+    if (betterStatus.hasOwnProperty(order.result?.status)) status = betterStatus[order.result?.status as BetterStatus];
   } catch (error) {
     console.error("Error fetching order:", error);
     return <OrderNotFound />

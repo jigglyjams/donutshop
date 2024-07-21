@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createOrder } from "@/lib/printful"
-import { variants } from "@/lib/printful/variants"
+import { variants } from "@/lib/printful/constants"
 import { waitForTransactionReceipt } from "wagmi/actions"
 import { config } from "@/lib/wagmi"
 import { redis } from "@/lib/redis"

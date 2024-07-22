@@ -24,6 +24,15 @@ export default function PriceBreakdown({ ethToUsd }: { ethToUsd: number | null }
       </div>
       <div className="text-right font-bold">
         {ethToUsd ? (total / ethToUsd).toFixed(6) : "0.------"} ETH
+        <div className="text-[9px] font-normal">source:&nbsp;
+          <a
+            className="underline"
+            target="_blank"
+            rel="noreferrer"
+            href="https://api.coinbase.com/v2/prices/ETH-USD/spot">
+              api.coinbase.com
+          </a>
+        </div>
       </div>
     </div>
   );

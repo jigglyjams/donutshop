@@ -21,12 +21,9 @@ built with:
 3. ```cp blank.env.local .env.local```
 4. Create a [printful](https://www.printful.com) account and store
 5. Login with same account and create [printful private token](https://developers.printful.com)
-
   ![image](/docs/printful_developer_home.png)
 6. Name the token, add an email (required), set expiration date, and set minimum scopes shown below, add to `.env.local`
-
   ![image](/docs/printful_token.png)
-
 7. Create a wallet connect project and add to `.env.local`
 8. Create an infura API key and add to `.env.local`
 9. Create a upstash redis instance and add to `.env.local` (used to track order nonces)

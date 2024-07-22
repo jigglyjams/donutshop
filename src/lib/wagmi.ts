@@ -1,4 +1,4 @@
-import { http, createConfig, createStorage } from "wagmi";
+import { http, createConfig } from "wagmi";
 import { mainnet, sepolia } from "wagmi/chains"; 
 import { walletConnect, coinbaseWallet } from "wagmi/connectors";
 

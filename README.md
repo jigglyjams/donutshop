@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🍩
+donutshop is a simple way to connect a juicebox project to a [printful](https://printful.com) store
 
-## Getting Started
+built with:
+ * [nextjs app router](https://nextjs.org/docs/app)
+ * [tailwindcss](https://tailwindcss.com)
+ * [wagmi.sh](https://wagmi.sh)
+ * [connectkit](https://docs.family.co)
+ * [walletconnect](https://walletconnect.com)
+ * [infura](https://www.infura.io)
+ * [printful api](https://developers.printful.com/docs/)
+ * [juicebox pay](https://docs.juicebox.money/dev/api/contracts/or-payment-terminals/or-abstract/jbpayoutredemptionpaymentterminal3_1_1/#pay)
+ * [upstash](https://upstash.com)
 
-First, run the development server:
+## Setup
+[!IMPORTANT]
+This is still a work in progress. Product images and printful products are hardcoded. The next steps are to make these dynamic and configurable.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Clone the repo
+2. ```npm install```
+3. ```cp blank.env.local .env.local```
+4. Create a [printful](https://www.printful.com) account and store
+5. Login with same account and create [printful private token](https://developers.printful.com)
+  ![image](/docs/printful_developer_home.png)
+1. Name the token, add an email (required), set expiration date, and set minimum scopes shown below, add to `.env.local`
+  ![image](/docs/printful_token.png)
+1. Create a wallet connect project and add to `.env.local`
+2. Create an infura API key and add to `.env.local`
+3. Create a upstash redis instance and add to `.env.local` (used to track order nonces)
+4. Set the `NEXT_PUBLIC_JUICEBOX_PROJECT_ID` in `.env.local` to the juicebox project id
+  ![image](/docs/juicebox.png)
+1.  Deploy!

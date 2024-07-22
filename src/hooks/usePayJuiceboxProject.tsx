@@ -15,7 +15,7 @@ const paymentTerminal = {
 } as const;
 
 type PayJuiceboxProjectInputs = {
-  projectId: number;
+  projectId: string;
   value: number;
   callerAddress: `0x${string}`;
   memo: string;

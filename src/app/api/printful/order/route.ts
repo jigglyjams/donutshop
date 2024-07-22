@@ -32,7 +32,6 @@ export async function POST(request: NextRequest) {
     }
 
     const variantIndex = colors.indexOf(variant)
-    // try {
     const response = await createOrder(
       recipient,
       [variants[variantIndex]],

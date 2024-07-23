@@ -10,7 +10,6 @@ built with:
  * [infura](https://www.infura.io)
  * [printful api](https://developers.printful.com/docs/)
  * [juicebox pay](https://docs.juicebox.money/dev/api/contracts/or-payment-terminals/or-abstract/jbpayoutredemptionpaymentterminal3_1_1/#pay)
- * [upstash](https://upstash.com)
 
 ## Setup
 > [!IMPORTANT]

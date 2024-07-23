@@ -14,11 +14,27 @@ export default function Checkout() {
       <p className="text-sm ml-1">that there <span className="underline font-bold">{variant}</span> hat {"gon'"} look nice on ya!</p>
       <div className="mt-10 flex flex-col md:flex-row gap-8">
         <div className="md:w-2/3">
-          <div className="text-xs mb-3 text-amber-700">
-            NOTE: we do not store or post your address on chain or in any database!!
-            it is sent directly to <a href="https://printful.com" className="underline" rel="noreferrer" target="_blank">
-            Printful
-            </a> for order fulfillment.
+          <div className="-mt-6 text-xs mb-6 text-amber-700 bg-gray-200 p-3 rounded-lg">
+            <h3 className="font-bold underline text-gray-700 mb-1">NOTE:</h3>
+            <ol className="ml-2 list-decimal list-inside space-y-1">
+              <li>
+                We will never post your shipping address on chain
+              </li>
+              <li>
+                Shipping information is sent directly to{" "}
+                <a href="https://printful.com" className="underline text-blue-600 hover:text-blue-800" rel="noreferrer" target="_blank">
+                  Printful
+                </a>
+              </li>
+              <li>
+                This site does not depend on any additional databases
+              </li>
+            </ol>
+            <div className="mt-1">
+              <a href="https://github.com/jigglyjams/donutshop" className="underline text-blue-600 hover:text-blue-800" rel="noreferrer" target="_blank">
+                (github)
+              </a>
+            </div>
           </div>
           <ShippingAddressForm />
         </div>

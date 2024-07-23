@@ -1,4 +1,3 @@
-import { AddressInfo } from "@/lib/printful/types";
 import { countries } from "@/lib/printful/countries";
 import { useCart } from "@/app/context/CartContext";
 

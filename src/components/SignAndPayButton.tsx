@@ -5,6 +5,9 @@ import { getTotalPriceInEth } from "@/lib/price";
 import { useAccount } from "wagmi";
 import { useState } from "react";
 import Link from "next/link";
+import { useCart } from "@/app/context/CartContext";
+import { useInitOrder } from "@/hooks/useInitOrder";
+import { ORDER_PREFIX } from "@/lib/printful/constants";
 
 const recipientFilled = (recipient: AddressInfo) => {
   return (
@@ -18,20 +21,19 @@ const recipientFilled = (recipient: AddressInfo) => {
 };
 
 export default function SignAndPayButton(
-  { recipient, ethToUsd, variant, loading }: {
-    recipient: AddressInfo;
-    ethToUsd: number | null;
-    variant: string;
-    loading: boolean;
-  }
+  { ethToUsd, loading }: { ethToUsd: number | null; loading: boolean }
 ) {
+  const { orderIdObj, loading: orderIdObjLoading} = useInitOrder();
+  const { recipient, variant } = useCart();
   const { address, chainId } = useAccount();
   const { pay, isPending } = usePayJuiceboxProject({
     projectId: process.env.NEXT_PUBLIC_JUICEBOX_PROJECT_ID || "477",
     network: "mainnet",
+    // projectId: "38",
+    // network: "sepolia",
     value: getTotalPriceInEth(ethToUsd || 0),
     callerAddress: address || "0x0",
-    memo: "hat game hat game i can play the hat game 🧢",
+    memo: `${ORDER_PREFIX}${orderIdObj?.idHash}`,
   });
 
   const [txnHash, setTxnHash] = useState<string | null>(null);
@@ -40,15 +42,9 @@ export default function SignAndPayButton(
     <div className="mt-4 flex flex-col space-y-4">
       <button
         className="w-full text-sm bg-blue-800 hover:bg-blue-900 text-white py-3 px-6 rounded-md disabled:opacity-50 disabled:hover:bg-blue-800"
-        disabled={!recipientFilled(recipient) || isPending || !ethToUsd || !address || loading}
+        disabled={!recipientFilled(recipient) || isPending || !ethToUsd || !address || loading || orderIdObjLoading}
         onClick={async () => {
           const payLoading = toast.loading("Signing...");
-
-          // get nonce to validate request
-          const nonceRequest = await fetch("/api/nonce");
-          const { nonce } = await nonceRequest.json();
-          console.log("nonce", nonce);
-
           try {
             const txnHash = await pay();
             if (txnHash) {
@@ -60,7 +56,7 @@ export default function SignAndPayButton(
               const order = await fetch("/api/printful/order", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ txnHash, recipient, variant, chainId, nonce }),
+                body: JSON.stringify({ txnHash, recipient, variant, chainId, orderId: orderIdObj?.id }),
               });
               if (order.ok) {
                 const data = await order.json();

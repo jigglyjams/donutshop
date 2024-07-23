@@ -1,4 +1,3 @@
-import { AddressInfo } from "@/lib/printful/types";
 import PriceBreakdown from "./PriceBreakdown"
 import SignAndPayButton from "./SignAndPayButton"
 import { useState } from "react";
@@ -7,13 +6,9 @@ import { ArrowPathIcon } from "@heroicons/react/20/solid";
 export default function ReceiptMockView({
   ethToUsd,
   refetchEthToUsd,
-  recipient,
-  variant,
 } : {
   ethToUsd: number | null;
   refetchEthToUsd: () => void;
-  recipient: AddressInfo;
-  variant: string;
 }) {
 
   const [ loading, setLoading ] = useState(false);
@@ -21,7 +16,7 @@ export default function ReceiptMockView({
   const refetch = async () => {
     setLoading(true);
     refetchEthToUsd();
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await new Promise((resolve) => setTimeout(resolve, 1200));
     setLoading(false);
   }
 
@@ -45,7 +40,7 @@ export default function ReceiptMockView({
         <div>{"#".repeat(30)}</div>
         <div>{"#".repeat(30)}</div>
         <div className="w-3/4 my-2">
-          <SignAndPayButton recipient={recipient} ethToUsd={ethToUsd} variant={variant} loading={loading} />
+          <SignAndPayButton ethToUsd={ethToUsd} loading={loading} />
         </div>
         <div className="text-[10px] mt-1">Keep this receipt for your records</div>
         <div className="mt-6">Thanks for shopping with us!</div>

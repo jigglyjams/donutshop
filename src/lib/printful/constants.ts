@@ -25,4 +25,6 @@ export const betterStatus = {
   archived: "order archived"
 } as const;
 
+export const ORDER_PREFIX = "donut-";
+
 export type BetterStatus = keyof typeof betterStatus;

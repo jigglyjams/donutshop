@@ -1,15 +1,11 @@
 import { AddressInfo } from "@/lib/printful/types";
 import { countries } from "@/lib/printful/countries";
+import { useCart } from "@/app/context/CartContext";
 
 const US_STATES = countries.find((c) => c.name === "United States")?.states || [];
 
-export default function ShippingAddressForm({
-  recipient,
-  setRecipient
-}: {
-  recipient: AddressInfo;
-  setRecipient: (data: AddressInfo) => void;
-}) {
+export default function ShippingAddressForm() {
+  const { recipient, setRecipient } = useCart();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let state_code = recipient.state_code;

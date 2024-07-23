@@ -10,7 +10,7 @@ export default function Index() {
           className="bg-blue-800 hover:bg-blue-900 text-white font-mono py-3 px-6 rounded-md"
           href="/checkout"
         >
-            Checkout
+          Checkout
         </Link>
       </div>
     </div>

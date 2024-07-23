@@ -5,7 +5,7 @@ import { useFetchEthToUsd } from "@/hooks/useFetchEthToUsd";
 import ReceiptMockView from "@/components/ReceiptMockView";
 
 export default function Checkout() {
-  const { variant, recipient, setRecipient } = useCart();
+  const { variant } = useCart();
   const { ethToUsd, refetch: refetchEthToUsd } = useFetchEthToUsd();
 
   return (
@@ -20,14 +20,12 @@ export default function Checkout() {
             Printful
             </a> for order fulfillment.
           </div>
-          <ShippingAddressForm recipient={recipient} setRecipient={setRecipient} />
+          <ShippingAddressForm />
         </div>
         <div className="md:w-1/3 space-y-12 border rounded-md md:-mt-28 pt-12 pb-20">
           <ReceiptMockView
             ethToUsd={ethToUsd}
             refetchEthToUsd={refetchEthToUsd}
-            recipient={recipient}
-            variant={variant}
           />
         </div>
       </div>

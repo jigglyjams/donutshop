@@ -1,8 +1,9 @@
 import {
   useSimulateContract,
   useWriteContract,
-} from 'wagmi';
-import { parseEther } from 'viem';
+} from "wagmi";
+import { parseEther } from "viem";
+import { abi } from "@/lib/juicebox";
 
 const ETH_TOKEN_ADDRESS = "0x000000000000000000000000000000000000eeee";
 const DEFAULT_MIN_RETURNED_TOKENS = 0;
@@ -18,26 +19,9 @@ type PayJuiceboxProjectInputs = {
   projectId: string;
   value: number;
   callerAddress: `0x${string}`;
-  memo: string;
+  memo?: string;
   network?: keyof typeof paymentTerminal;
 };
-
-const abi = [{
-  inputs: [
-    { internalType: "uint256", name: "_projectId", type: "uint256" },
-    { internalType: "uint256", name: "_amount", type: "uint256" },
-    { internalType: "address", name: "_token", type: "address" },
-    { internalType: "address", name: "_beneficiary", type: "address" },
-    { internalType: "uint256", name: "_minReturnedTokens", type: "uint256" },
-    { internalType: "bool", name: "_preferClaimedTokens", type: "bool" },
-    { internalType: "string", name: "_memo", type: "string" },
-    { internalType: "bytes", name: "_metadata", type: "bytes" }
-  ],
-  name: "pay",
-  outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-  stateMutability: "payable",
-  type: "function"
-}] as const;
 
 export function usePayJuiceboxProject(inputs: PayJuiceboxProjectInputs) {
   const valueInWei = parseEther(inputs.value.toString());
@@ -45,7 +29,7 @@ export function usePayJuiceboxProject(inputs: PayJuiceboxProjectInputs) {
   const writeContractData = {
     address: paymentTerminal[inputs.network || "mainnet"],
     abi,
-    functionName: 'pay',
+    functionName: "pay",
     args: [
       BigInt(inputs.projectId),
       valueInWei,
@@ -54,7 +38,7 @@ export function usePayJuiceboxProject(inputs: PayJuiceboxProjectInputs) {
       BigInt(DEFAULT_MIN_RETURNED_TOKENS),
       DEFAULT_PREFER_CLAIMED_TOKENS,
       inputs.memo || "",
-      DEFAULT_DELEGATE_METADATA,
+      DEFAULT_DELEGATE_METADATA
     ],
     value: valueInWei,
   } as const;
@@ -65,7 +49,10 @@ export function usePayJuiceboxProject(inputs: PayJuiceboxProjectInputs) {
 
   const pay = async () => {
     if (!simulateData) return;
-    return await writeContractAsync(simulateData.request);
+    if (!inputs.memo) {
+      throw new Error("Memo is required to pay a Juicebox project");
+    }
+    return await writeContractAsync(writeContractData);
   }
 
   return { 

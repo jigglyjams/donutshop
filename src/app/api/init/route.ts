@@ -2,6 +2,8 @@ import { customAlphabet } from "nanoid"
 import { NextResponse } from "next/server"
 import { secretHash } from "@/lib/hmac"
 
+export const fetchCache = "force-no-store"
+
 export async function GET() {
   const nanoid = customAlphabet("23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz", 20)
   const id = nanoid()
